@@ -12,7 +12,8 @@
 
 class User < ActiveRecord::Base
   validates :email_address, :session_token, uniqueness: true
-  after_initialize(&:reset_session_token)
+  after_initialize :ensure_session_token
+  after_initialize :set_activation_token
 
   attr_reader :password
 
